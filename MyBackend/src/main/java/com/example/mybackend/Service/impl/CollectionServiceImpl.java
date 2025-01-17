@@ -66,9 +66,17 @@ public class CollectionServiceImpl implements ICollectionService {
     }
 
     @Override
-    public void thumbUp(int id) {
+    public void thumbsUp(int id) {
         Optional<Collection> collectionOptional = collectionRepository.findById(id);
-//        collectionOptional.ifPresent(category -> dto.setCategoryName(category.getTitle()));
+        if (collectionOptional.isPresent()) {
+            Collection collection = collectionOptional.get();
+            // 对 thumbs 字段加 1
+            collection.setThumbs(collection.getThumbs() + 1);
+            // 保存修改后的 Collection 对象回数据库
+            collectionRepository.save(collection);
+        } else {
+            System.out.println("No collection found with id: " + id);
+        }
     }
 
     // 辅助方法，将Collection实体转换为CollectionDTO对象

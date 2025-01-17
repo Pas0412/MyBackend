@@ -10,5 +10,5 @@ public interface ICollectionService {
 
     List<CollectionDTO> getCollections();
 
-    void thumbUp(int id);
+    void thumbsUp(int id);
 }

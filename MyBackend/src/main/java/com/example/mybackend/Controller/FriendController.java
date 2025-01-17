@@ -30,7 +30,7 @@ import com.example.mybackend.Service.IFriendService;
  * @author Yonghui HUANG
  */
 @Controller
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://huangyonghui.cn")
 public class FriendController {
 
     @Autowired

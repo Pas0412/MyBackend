@@ -1,52 +1,52 @@
 package com.example.mybackend.Controller;
-import com.example.mybackend.DTO.CollectionDTO;
+import com.example.mybackend.DTO.NoteDTO;
 import com.example.mybackend.Service.IStatisticsService;
 import com.example.mybackend.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import com.example.mybackend.Entity.Collection;
-import com.example.mybackend.Service.ICollectionService;
+import com.example.mybackend.Entity.Note;
+import com.example.mybackend.Service.INoteService;
 
 @RestController
 @CrossOrigin(origins = "http://huangyonghui.cn")
-public class CollectionController {
+public class NoteController {
 
     @Autowired
-    private ICollectionService collectionService;
+    private INoteService noteService;
 
     @Autowired
     private IStatisticsService statisticsService;
 
-    @RequestMapping("/get-all-collections")
+    @RequestMapping("/get-all-notes")
     @ResponseBody
-    public Result<Object> getAllCollections() {
-        List<Collection> collections = collectionService.getAllCollections();
-        statisticsService.incrementViews("collections");
+    public Result<Object> getAllNotes() {
+        List<Note> notes = noteService.getAllNotes();
+        statisticsService.incrementViews("notes");
         try {
-            return Result.success(collections);
+            return Result.success(notes);
         } catch (Exception e) {
             return Result.fail(e.toString());
         }
     }
 
-    @RequestMapping("/get-collections")
+    @RequestMapping("/get-notes")
     @ResponseBody
-    public Result<Object> getCollections() {
+    public Result<Object> getNotes() {
         try {
-            List<CollectionDTO> collections = collectionService.getCollections();
-            return Result.success(collections);
+            List<NoteDTO> notes = noteService.getNotes();
+            return Result.success(notes);
         } catch (Exception e) {
             return Result.fail(e.toString());
         }
     }
 
-    @PostMapping("/thumbs-up")
+    @PostMapping("/note-thumbs-up")
     @ResponseBody
     public Result<Void> ThumbsUp(@RequestParam(name = "id") Integer id) {
         try {
-            collectionService.thumbsUp(id);
+            noteService.thumbsUp(id);
             return Result.success();
         } catch (Exception e) {
             return Result.fail(e.toString());
